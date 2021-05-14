@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "got": "^11.8.2",
+    "imageapi.js": "^1.6.1"
   },
   "devDependencies": {
     "eslint": "^7.25.0"
