@@ -5,14 +5,6 @@ const client = new Discord.Client();
 const fsLibrary  = require('fs') 
 const got = require('got');
 var repeater;
-var frenchclassquotes = [
-  "\"I used to go to parties, and I would take it out, and people would be really amazed\" -Zale",
-  "\"bye sam. love you!\" - Max",
-  "\"i bombed so hard the fbi should put me on a watchlist\" - Kaz",
-  "\"you look like a three\"-Dan",
-  "\"I was gonna say \"sorry sister\" but than I realized I was gonna say \"sorry sister\"\" -Kaz \n\"Sorry sister, not happening\"-Kaz"
-
-]
 const list = [1, 2, 3, 4, 5]
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -44,10 +36,12 @@ function meme(message) {
 keepAlive()
 
 client.once('ready', () => {
-  antiAd(client)
 	console.log('Ready!');
   console.log(client.guilds.cache.size)
   client.channels.cache.get('838264759899652137').send('DaBaby bot has been restarted')
+  client.user.setPresence({
+   status: "online"
+  });
 	client.user.setActivity('DaBaby help', { type: 'STREAMING', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 });
 
@@ -66,16 +60,20 @@ client.on('message', async (message) => {
   if ((message.content) == '!help') {
     message.reply('(For help use "DaBaby help")');
   }
-  if (message.content=== "DaBaby french class quotes") {
-    
-    message.reply(frenchclassquotes[Math.floor(Math.random() * frenchclassquotes.length)])
-  }
+
   if (message.content.includes("DaBaby reply")) {
     if ((message.author.id) === '836069453389234206') {
      console.log('yes')
       return
     }
     message.reply('K')
+  }
+  if (message.content=== "DaBaby leave this server right now") {
+    if ((message.guild.id) === '814940437751660595') {
+      return
+    }
+    console.log('leaving' + message.guild)
+    message.guild.leave()
   }
 });
 
