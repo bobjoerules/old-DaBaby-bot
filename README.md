@@ -9,5 +9,3 @@ Also I'm using replit to run my code. This lets me not have to have the computer
 
 I'm also using uptime website to have the website not timeout
 > This is my First bot!!!
-
-test
