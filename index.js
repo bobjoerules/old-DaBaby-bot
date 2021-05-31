@@ -1,5 +1,4 @@
-
-//server
+//server so bot does not stop running when you leave replit
 
 const keepAlive = require("./server.js")
 //api
@@ -75,7 +74,7 @@ client.once('ready', () => {
   client.user.setPresence({
    status: "online"
   });
-	client.user.setActivity('work in progress', { type: 'STREAMING', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
+	client.user.setActivity('In ' + client.guilds.cache.size + ' servers', { type: 'STREAMING', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 });
 
 
