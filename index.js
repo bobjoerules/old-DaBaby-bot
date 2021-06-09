@@ -222,6 +222,9 @@ client.on('message', async (message) => {
     const rndInt = randomIntFromInterval(0, 1000)
     message.channel.send('https://picsum.photos/id/' + rndInt + '/1080/720')
   }
+  if ((message.content.slice(7)) == 'website') {
+    message.channel.send('Here is the website: https://DaBaby-main-code.bobjoerules.repl.co')
+  }
 });
 
 client.on('clickButton', async (button) => {
