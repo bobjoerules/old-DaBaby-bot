@@ -11,7 +11,7 @@ client = new Discord.Client(),
 //config for distube
 config = {
   //prefix
-  prefix: "DaBaby",
+  prefix: "dababy",
   //token
   token: process.env.TOKEN 
 };
@@ -35,6 +35,7 @@ function getRandomColor() {
 function randomIntFromInterval(min, max) { // min and max included 
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
 
 
 function meme(message) {
@@ -95,6 +96,25 @@ client.on('guildCreate', (guild) => {
 });
 
 client.on('message', async (message) => {
+  if ((message.channel.type) === 'dm') {
+    //need help it's DaBaby help
+    if ((message.content) == 'Help') {
+      message.reply('(Use "DaBaby help")');
+      var used = true
+    }
+  }
+  if ((message.content) == '!help') {
+    //for help use DaBaby instead
+    message.reply('(For help in using DaBaby use "DaBaby help")');
+    var used = true
+  }
+  if (message.content.includes("gtg")) {
+    //say bye too person leaving for the time being
+		message.reply('bye');
+    //set used to true so it adds one more to true
+    var used = true
+	}
+  if (!message.content.toLowerCase().startsWith("dababy")) return
   //Makes times used not change every message
   used = false
   //Bot doesn't trigger it's self and other bots don't also
@@ -102,7 +122,7 @@ client.on('message', async (message) => {
     return
   }
   //Help
-  if ((message.content) == 'DaBaby help') {
+  if ((message.content.slice(7)) == 'help') {
     //delete message of DaBaby help
     message.delete()
     const help = new Discord.MessageEmbed()
@@ -114,101 +134,61 @@ client.on('message', async (message) => {
     //set used to true so it adds one more to true
     var used = true
   }
-  if (message.content.includes("gtg")) {
-    //say bye too person leaving for the time being
-		message.reply('bye');
-    //set used to true so it adds one more to true
-    var used = true
-	}
-
-  if (message.content.includes("DaBaby I voted")) {
-    const fetch = require("node-fetch"); // import node-fetch module
-
-    const botId = client.user.id; // get the client (bot) id
-    const uId = message.author.id; // get the author id
-
-    const url = `https://top.gg/api/bots/${botId}/check?userId=${uId}`; // api endpoint
-
-    fetch(url, { method: "GET", headers: { Authorization: "your top.gg bot token" }})
-      .then((res) => res.text())
-      .then((json) => {
-         var isVoted = JSON.parse(json).voted;
-
-        if (isVoted === 0) {
-          return message.channel.send("you haven't voted yet");
-        }
-
-          message.channel.send("This command is not setup yet sry");
-      });
-
-  }
-
-
-  if ((message.content) == 'DaBaby car') {
+  if ((message.content.slice(7)) == 'car') {
     //send image of DaBaby car
     message.channel.send('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2F63fiic43g0o51.jpg&f=1&nofb=1');
     var used = true
   }
-  if (message.content.includes("DaBaby lessgo")) {
+  if (message.content.slice(7).includes("lessgo")) {
     //Lessgo
     message.reply('https://cdn.discordapp.com/attachments/840962120518074388/842485771276517426/video0.mp4')
     var used = true
   }
-  if ((message.content) == '!help') {
-    //for help use DaBaby instead
-    message.reply('(For help in using DaBaby use "DaBaby help")');
-    var used = true
-  }
+  
 
-  if (message.content.includes("DaBaby reply")) {
+  if (message.content.slice(7).includes("reply")) {
     //reply k
     message.reply('K')
     var used = true
   }
-  if ((message.content) == 'DaBaby game') {
+  if ((message.content.slice(7)) == 'game') {
     //Link to game
     message.reply('Get DaBaby game here (for apple only): https://apps.apple.com/us/app/dagame/id1562587737');
     var used = true
   }
-  if ((message.content) == 'DaBaby NSFW') {
+  if ((message.content.slice(7)) == 'NSFW') {
     //This is the wrong bot bro
     message.reply('I\'m not a NSFW bot!!!!' );
     var used = true
   }
-  if ((message.channel.type) === 'dm') {
-    //need help it's DaBaby help
-    if ((message.content) == 'Help') {
-      message.reply('(Use "DaBaby help")');
-      var used = true
-    }
-  }
-  if ((message.content) == 'DaBaby meme') {
+  if ((message.content.slice(7)) == 'meme') {
     //send meme using the function
     meme(message);
     var used = true
   }
-  if ((message.content) == 'DaBaby cheese server') {
+  if ((message.content.slice(7)) == 'cheese server') {
     //cheese server link
     message.reply('https://discord.gg/dRW6fPjHpC')
     var used = true
   }
-  if (message.content.startsWith('DaBaby suggestion')) {
+  //suggest command
+  if (message.content.slice(7).startsWith('suggestion')) {
     const suggest = new Discord.MessageEmbed()
     suggest.setTitle('Suggestion made by: ' + message.author.username)
     suggest.setColor('#5cf000')
     suggest.setDescription(message.content.slice(17))
     suggest.setTimestamp()
     var used = true
+    //send to bot suggestions channel
     client.channels.cache.get('846452836615061564').send(suggest)
   }
-  
-  if (message.content.startsWith('!button')) {
+  //button test
+  if (message.content.slice(7).startsWith('button')) {
     let btn = new disbut.MessageButton()
-        btn.setLabel('Help!');
+        btn.setLabel('Free nitro');
         btn.setStyle('blurple')
-        btn.setURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
         btn.setID('clickto');
-    await message.channel.send("hello", btn);   
+    await message.channel.send("click this button", btn);   
   }
   
   if (used) {
@@ -220,61 +200,43 @@ client.on('message', async (message) => {
     fsLibrary.writeFileSync('times_used.int',usedtimes)
     
   };
-  if ((message.content) == 'DaBaby how many times have you been used?'){
+  if ((message.content.slice(7)) == 'how many times have you been used?'){
     var used = true
     const timesused = new Discord.MessageEmbed()
     timesused.setDescription('I have been used ' + fsLibrary.readFileSync('times_used.int','utf8') + ' times')
     message.reply(timesused)
   }
-  if ((message.content) == 'DaBaby are you sus?') {
+  if ((message.content.slice(7)) == 'are you sus?') {
     const sus = new Discord.MessageEmbed()
     sus.setTitle('Yes!!!')
     sus.setImage('https://i.ytimg.com/vi/Ns6y5otgkXY/maxresdefault.jpg')
     message.channel.send(sus)
   }
-  if (message.content.startsWith('DaBaby avata')) {
+  if (message.content.slice(7).startsWith('avata')) {
     const user = message.mentions.users.first() || message.author;
     message.channel.send("https://cdn.discordapp.com/avatars/"+user.id+"/"+user.avatar+".jpeg");
     message.channel.send('Here is ' + user.username + '\'s avatar')
     var used = true
   }
-  if ((message.content) == 'DaBaby random image') {
+  if ((message.content.slice(7)) == 'random image') {
     const rndInt = randomIntFromInterval(0, 1000)
     message.channel.send('https://picsum.photos/id/' + rndInt + '/1080/720')
   }
 });
-
-
-
-
-client.on('message', async (message) => {
-  //makes times used not change every message
-  used = false
-  //Lessgo
-  if (message.author.bot) {
-    return
-  }
-  //don't send lessgo if commaned 
-  if (message.content == "DaBaby help" || message.content == "DaBaby meme" || message.content == "DaBaby game" || message.content == "DaBaby cheese server" || message.content == "DaBaby NSFW" || message.content == "DaBaby car" || message.content.startsWith('DaBaby avatar') || message.content.startsWith('DaBaby suggestion')) {
-    return
-  }
-  
-});
-
 
 client.on('clickButton', async (button) => {
     if (button.id === 'clickto') {
         await button.think(true);
 
         setTimeout(() => {
-            button.reply.edit("Chips hair is very pretty");
+            button.reply.edit("lol u thought");
         }, 1000);
     };
 });
 
 client.on('message', message => {
 	if (message.author.bot) return
-	if (!message.content.startsWith(config.prefix)) return
+	if (!message.content.toLowerCase().startsWith(config.prefix)) return
 	const args = message.content.slice(config.prefix.length).trim().split(/ +/g)
 	const command = args.shift()
 
