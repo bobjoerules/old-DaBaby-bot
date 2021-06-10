@@ -59,10 +59,12 @@ function meme(message) {
 }
 
 
+
 //keep alive
 keepAlive()
 
 client.once('ready', () => {
+  
   console.log(`Logged in as ${client.user.tag}!`);
   //Tell the bot is ready
 	console.log('Ready!');
@@ -87,13 +89,46 @@ client.once('ready', () => {
   let usesabout = guild.channels.cache.get('849860265989242890')
   serversin.setName('Servers: ' + client.guilds.cache.size)
   usesabout.setName('Uses ↔: ' + fsLibrary.readFileSync('times_used.int','utf8'))
+  client.api.applications(client.user.id).guilds('814940437751660595').commands.post({data: {
+      name: 'help',
+      description: 'list of commands you can use'
+  }})
+  client.api.applications(client.user.id).guilds('814940437751660595').commands.post({data: {
+      name: 'test',
+      description: 'will this work'
+  }})
+  client.ws.on('INTERACTION_CREATE', async interaction => {
+    const command = interaction.data.name.toLowerCase()
+   console.log(command)
+    if (command == 'help') {
+      const embed = new Discord.MessageEmbed()
+        .setTitle("Help:")
+        .setDescription("test")
+      client.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+          type: 4,
+          data: createAPIMessage(interaction, embed)
+        }
+      })
+    }
+  })
 });
 
+
+async function createAPIMessage(interaction, content) {
+  const apiMessage = await Discord.APIMessage.create(client.channels.resolve(interaction.channel_id), content)
+    .resolveData()
+    .resolveFiles();
+
+  return apiMessage; 
+}
 client.on('guildCreate', (guild) => {
   //change amount of servers everytime bot is added too a server
   client.user.setActivity('Servers: ' + client.guilds.cache.size + ' Uses: ' + fsLibrary.readFileSync('times_used.int','utf8') + '(Uses may be off (less) real amount)', { type: 'STREAMING', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
 
 });
+
+
 
 client.on('message', async (message) => {
   if ((message.channel.type) === 'dm') {
@@ -139,9 +174,13 @@ client.on('message', async (message) => {
     message.channel.send('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2F63fiic43g0o51.jpg&f=1&nofb=1');
     var used = true
   }
+  if ((message.content.slice(7)) == 'website') {
+    message.channel.send('Go to the DaBaby bot\'s website here: https://DaBaby-main-code.bobjoerules.repl.co')
+    var used = true
+  }
   if (message.content.slice(7).includes("lessgo")) {
     //Lessgo
-    message.reply('https://cdn.discordapp.com/attachments/840962120518074388/842485771276517426/video0.mp4')
+    message.channel.send('https://cdn.discordapp.com/attachments/840962120518074388/842485771276517426/video0.mp4')
     var used = true
   }
   
@@ -149,6 +188,11 @@ client.on('message', async (message) => {
   if (message.content.slice(7).includes("reply")) {
     //reply k
     message.reply('K')
+    var used = true
+  }
+  if (message.content.slice(7).includes("sus emoji")) {
+    //ඞ
+    message.channel.send('ඞ')
     var used = true
   }
   if ((message.content.slice(7)) == 'game') {
@@ -221,9 +265,6 @@ client.on('message', async (message) => {
   if ((message.content.slice(7)) == 'random image') {
     const rndInt = randomIntFromInterval(0, 1000)
     message.channel.send('https://picsum.photos/id/' + rndInt + '/1080/720')
-  }
-  if ((message.content.slice(7)) == 'website') {
-    message.channel.send('Here is the website: https://DaBaby-main-code.bobjoerules.repl.co')
   }
 });
 
