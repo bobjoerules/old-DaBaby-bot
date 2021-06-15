@@ -131,16 +131,22 @@ client.on('guildCreate', (guild) => {
 
 
 client.on('message', async (message) => {
+  used = false
   if ((message.channel.type) === 'dm') {
     //need help it's DaBaby help
-    if ((message.content) == 'Help') {
-      message.reply('(Use "DaBaby help")');
+    
+    if ((message.content.toLowerCase()) == 'help') {
+      const Help = new Discord.MessageEmbed()
+      Help.setTitle('(Use "DaBaby help")')
+      message.reply(Help);
       var used = true
     }
   }
   if ((message.content) == '!help') {
     //for help use DaBaby instead
-    message.reply('(For help in using DaBaby use "DaBaby help")');
+    const Help = new Discord.MessageEmbed()
+    Help.setTitle('(For help in using DaBaby use "DaBaby help")')
+    message.reply(Help);
     var used = true
   }
   if (message.content.includes("gtg")) {
@@ -171,11 +177,16 @@ client.on('message', async (message) => {
   }
   if ((message.content.slice(7)) == 'car') {
     //send image of DaBaby car
-    message.channel.send('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2F63fiic43g0o51.jpg&f=1&nofb=1');
+    const Car = new Discord.MessageEmbed()
+    Car.setImage('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2F63fiic43g0o51.jpg&f=1&nofb=1')
+    Car.setTitle('Lessgo')
+    message.channel.send(Car);
     var used = true
   }
   if ((message.content.slice(7)) == 'website') {
-    message.channel.send('Go to the DaBaby bot\'s website here: https://DaBaby-main-code.bobjoerules.repl.co')
+    const website = new Discord.MessageEmbed()
+    website.setDescription('Go to the DaBaby bot\'s website here: https://DaBaby-main-code.bobjoerules.repl.co')
+    message.channel.send(website)
     var used = true
   }
   if (message.content.slice(7).includes("lessgo")) {
@@ -190,7 +201,7 @@ client.on('message', async (message) => {
     message.reply('K')
     var used = true
   }
-  if (message.content.slice(7).includes("sus emoji")) {
+  if (message.content.slice(7).includes("among us emoji")) {
     //ඞ
     message.channel.send('ඞ')
     var used = true
@@ -266,6 +277,7 @@ client.on('message', async (message) => {
     const rndInt = randomIntFromInterval(0, 1000)
     message.channel.send('https://picsum.photos/id/' + rndInt + '/1080/720')
   }
+
 });
 
 client.on('clickButton', async (button) => {
