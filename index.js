@@ -269,13 +269,19 @@ client.on('message', async (message) => {
   }
   if (message.content.slice(7).startsWith('avata')) {
     const user = message.mentions.users.first() || message.author;
-    message.channel.send("https://cdn.discordapp.com/avatars/"+user.id+"/"+user.avatar+".jpeg");
-    message.channel.send('Here is ' + user.username + '\'s avatar')
+    const avatars = new Discord.MessageEmbed()
+    avatars.setTitle('Here is ' + user.username + '\'s avatar')
+    avatars.setImage("https://cdn.discordapp.com/avatars/"+user.id+"/"+user.avatar+".jpeg")
+    message.channel.send(avatars);
     var used = true
   }
   if ((message.content.slice(7)) == 'random image') {
+    
     const rndInt = randomIntFromInterval(0, 1000)
-    message.channel.send('https://picsum.photos/id/' + rndInt + '/1080/720')
+    const rimages = new Discord.MessageEmbed()
+    rimages.setTitle('DaBaby random image:')
+    rimages.setImage('https://picsum.photos/id/' + rndInt + '/1080/720')
+    message.channel.send(rimages)
   }
 
 });
@@ -347,6 +353,7 @@ client.on('message', message => {
 })
 
 
+
 const status = queue => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || 'Off'}\` | Loop: \`${queue.repeatMode ? queue.repeatMode === 2 ? 'All Queue' : 'This Song' : 'Off'}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
 
 
@@ -358,6 +365,7 @@ daplay
     music.setColor('#ffffff')
     music.setDescription(`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}`)
     message.channel.send(music)
+    queue.autoplay = false;
   })
 	.on('addSong', (message, queue, song) => {
     const music = new Discord.MessageEmbed()
@@ -383,6 +391,7 @@ daplay
 
 	.on('searchResult', (message, result) => {
 		let i = 0
+    const music = new Discord.MessageEmbed()
     music.setTitle('DaBaby Music player:')
     music.setColor('#ffffff')
     music.setDescription(`**Choose an option from below**\n${result.map(song => `**${++i}**. ${song.name} - \`${song.formattedDuration}\``).join('\n')}\n*Enter anything else or wait 60 seconds to cancel*`)
@@ -390,12 +399,14 @@ daplay
 	})
 
 	.on('searchCancel', message => {
+    const music = new Discord.MessageEmbed()
     music.setTitle('DaBaby Music player:')
     music.setColor('#ffffff')
     music.setDescription(`Searching canceled`)
     message.channel.send(music)
   })
 	.on('error', (message, e) => {
+    const music = new Discord.MessageEmbed()
     music.setTitle('DaBaby Music player:')
     music.setColor('#ffffff')
     music.setDescription(`bot cannot join that voice channel or you are not in a/the voice channel`)
@@ -403,15 +414,17 @@ daplay
 		console.error(e)
 	})
   .on("empty", message => {
+    const music = new Discord.MessageEmbed()
     music.setTitle('DaBaby Music player:')
     music.setColor('#ffffff')
     music.setDescription(`Channel is empty. Leaving the channel`)
     message.channel.send(music)
   })
   .on("finish", message => {
+    const music = new Discord.MessageEmbed()
     music.setTitle('DaBaby Music player:')
     music.setColor('#ffffff')
-    music.setDescription(`No more song in queue`)
+    music.setDescription(`No more songs in queue`)
     message.channel.send(music)
   });
   
