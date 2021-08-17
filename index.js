@@ -3,9 +3,11 @@ const keepAlive = require("./server.js")
 //imageapi
 const api = require("imageapi.js");
 //discord.js for using the bot for discord
-const Discord = require('discord.js'),
+const Discord = require('discord.js');
+//discord client
+const client = new Discord.Client();
 //fsLibrary
-const fsLibrary  = require('fs') 
+const fsLibrary  = require('fs'); 
 //got
 const got = require('got');
 var repeater;
@@ -137,9 +139,9 @@ client.on('message', async (message) => {
     message.channel.send(website)
     var used = true
   }
-    if ((message.content.slice(7)) == 'website') {
+    if ((message.content.slice(7)) == 'invite') {
     const link = new Discord.MessageEmbed()
-    link.setDescription('Get DaBaby bot here:')
+    link.setDescription('Get DaBaby bot here: https://discord.com/api/oauth2/authorize?client_id=836069453389234206&permissions=259849058880&scope=bot%20applications.commands')
     link.setDescription('(because the bot is not verifed yet you can not add to your server rn😭)')
     message.channel.send(link)
     var used = true
