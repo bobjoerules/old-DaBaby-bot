@@ -89,39 +89,9 @@ client.once('ready', () => {
   let usesabout = guild.channels.cache.get('849860265989242890')
   serversin.setName('Servers: ' + client.guilds.cache.size)
   usesabout.setName('Uses ↔: ' + fsLibrary.readFileSync('times_used.int','utf8'))
-  client.api.applications(client.user.id).guilds('814940437751660595').commands.post({data: {
-      name: 'help',
-      description: 'list of commands you can use'
-  }})
-  client.api.applications(client.user.id).guilds('814940437751660595').commands.post({data: {
-      name: 'test',
-      description: 'will this work'
-  }})
-  client.ws.on('INTERACTION_CREATE', async interaction => {
-    const command = interaction.data.name.toLowerCase()
-   console.log(command)
-    if (command == 'help') {
-      const embed = new Discord.MessageEmbed()
-        .setTitle("Help:")
-        .setDescription("test")
-      client.api.interactions(interaction.id, interaction.token).callback.post({
-        data: {
-          type: 4,
-          data: createAPIMessage(interaction, embed)
-        }
-      })
-    }
-  })
 });
 
 
-async function createAPIMessage(interaction, content) {
-  const apiMessage = await Discord.APIMessage.create(client.channels.resolve(interaction.channel_id), content)
-    .resolveData()
-    .resolveFiles();
-
-  return apiMessage; 
-}
 client.on('guildCreate', (guild) => {
   //change amount of servers everytime bot is added too a server
   client.user.setActivity('Servers: ' + client.guilds.cache.size + ' Uses: ' + fsLibrary.readFileSync('times_used.int','utf8') + '(Uses may be off (less) real amount)', { type: 'STREAMING', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' });
