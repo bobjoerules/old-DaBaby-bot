@@ -1,4 +1,4 @@
-# Tacanote bot
+# DaBaby bot
 
 
 ## This bot uses .js
@@ -8,4 +8,4 @@
 Also I'm using replit to run my code. This lets me not have to have the computer and code running and I can leave the tab.
 
 I'm also using uptime website to have the website not timeout
-> This is my 4th bot bascicly bot the other bots were made at the same time!!!
+> This is my First bot!!! i think
