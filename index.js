@@ -1,16 +1,13 @@
 //server so bot does not stop running when you leave the replit  
 const keepAlive = require("./server.js")
-//imageapi
-const api = require("imageapi.js");
 //discord.js for using the bot for discord
 const Discord = require('discord.js');
 //discord client
 const client = new Discord.Client();
-//fsLibrary
+//fsLibrary for reading file
 const fsLibrary  = require('fs'); 
-//got
+//got for reddit
 const got = require('got');
-var repeater;
 
 function meme(message) {
     const embed = new Discord.MessageEmbed();
@@ -118,7 +115,7 @@ client.on('message', async (message) => {
     //send list of things bot can do
     help.setTitle('Help List:')
     help.setColor('#5cf000')
-    help.setDescription('Main commands:\n\n• DaBaby help = List of what the bot can do (u are looking at it rn)\n• DaBaby car = DaBaby car image\n• DaBaby lessgo = Video of lessgo\n• DaBaby reply = Reply with “k”\n• DaBaby game = Link to DaBaby game\n• DaBaby meme = Proved DaBaby meme from Reddit\n•  DaBaby suggestion (suggestion) = Suggest something to be added (join the bots discord server to see the status of the suggestion)\n•  DaBaby are you sus? = Is he? IDK why don’t u find out\n•  DaBaby video = random DaBaby youtube music video\n•  DaBaby how many times have you been used? = About how many times he has been used\n\nOther:\n\n• gtg = Bot says bye\n• !help = Tell user how to use DaBaby bot help if they want to\n• Some commands are easter eggs try to find them or cheat using the bot github\n\nLinks:\n\n• DaBaby server = This bots help and official server\n• DaBaby website = Link to the website for this bot\n• DaBaby invite = Invite link for this bot\n\n(DaBaby bot is being changed and some commands not related to DaBaby have been taken away)\n\nIf you have had this bot since before August 17, 2021 and have bot adding prvilages pls re give dababy permishions here: https://discord.com/api/oauth2/authorize?client_id=836069453389234206&permissions=261392563904&scope=bot%20applications.commands')
+    help.setDescription('Main commands:\n\n• DaBaby help = List of what the bot can do (u are looking at it rn)\n• DaBaby car = DaBaby car image\n• DaBaby lessgo = Video of lessgo\n• DaBaby reply = Reply with “k”\n• DaBaby game = Link to DaBaby game\n• DaBaby meme = Aproved DaBaby meme from Reddit\n•  DaBaby suggestion (suggestion) = Suggest something to be added (join the bots discord server to see the status of the suggestion)\n•  DaBaby are you sus? = Is he? IDK why don’t u find out\n•  DaBaby video = random DaBaby youtube music video\n•  DaBaby how many times have you been used? = About how many times he has been used\n\nOther:\n\n• gtg = Bot says bye\n• !help = Tell user how to use DaBaby bot help if they want to\n• Some commands are easter eggs try to find them or cheat using the bot github\n\nLinks:\n\n• DaBaby server = This bots help and official server\n• DaBaby website = Link to the website for this bot\n• DaBaby invite = Invite link for this bot\n\n(DaBaby bot is being changed and some commands not related to DaBaby have been taken away)\n\nIf you have had this bot since before August 17, 2021 and have bot adding prvilages pls re give dababy permishions here: https://discord.com/api/oauth2/authorize?client_id=836069453389234206&permissions=261392563904&scope=bot%20applications.commands')
     message.channel.send(help)
     //set used to true so it adds one more to true
     var used = true
